@@ -1,0 +1,25 @@
+{% with messages =get_flashed_messages(with_categories=true) %}
+{% if messages %}
+  {% for category,message in messages %}
+  <div class="alert alert-{{category}} alert-dismissible bg-pink" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    {{messages}}
+</div>
+  {% endfor %}
+{% endif %}
+{% endwith %}
+
+{% if error %}
+<div class="alert alert-dismissible bg-pink" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+ {{error}}
+</div>
+{% endif%}
+
+
+{% if msg %}
+<div class="alert alert-dismissible bg-pink" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+ {{msg}}
+</div>
+{% endif%}

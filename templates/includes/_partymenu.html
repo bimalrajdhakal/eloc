@@ -1,0 +1,58 @@
+
+{% block body %}
+<section>
+    <!-- Left Sidebar -->
+    <aside id="leftsidebar" class="sidebar">
+        <!-- User Info -->
+        <div class="user-info">
+            <div class="image">
+                <img  width="48" height="48" alt="User" />
+            </div>
+            <div class="info-container">
+                <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome</div>
+                <div class="email"><b>{{session.useremail}}</b></div>
+                <div class="btn-group user-helper-dropdown">
+                    <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
+                    <ul class="dropdown-menu pull-right">
+                        <li><a href="javascript:void(0);"><i class="material-icons">person</i>Profile</a></li>
+                        <li role="seperator" class="divider"></li>
+                        <li><a href="/logout"><i class="material-icons">input</i>Sign Out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- #User Info -->
+        <!-- Menu -->
+        <div class="menu">
+            <ul class="list">
+                <li class="header">MAIN NAVIGATION</li>
+                <li class="active">
+                    <a href="/party/dashboard">
+                        <i class="material-icons">home</i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/party/apikey">
+                        <i class="material-icons">vpn_key</i>
+                        <span>API Key</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/party/apikey">
+                        <i class="material-icons">vpn_key</i>
+                        <span>Client Key</span>
+                    </a>
+                </li>
+        <!-- Common Menu start here -->
+            {% include 'includes/_commonmenu.html' %} 
+
+        <!-- Common menu ends here -->
+            </ul>
+        </div>
+        <!-- #Menu -->
+    </aside>
+    <!-- #END# Left Sidebar -->
+</section>
+{% endblock %}
+

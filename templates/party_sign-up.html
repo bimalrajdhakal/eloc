@@ -1,0 +1,232 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>3rd Party | eLoc </title>
+    <!-- Favicon-->
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap Core Css -->
+    <link href="../static/dassets/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Waves Effect Css -->
+    <link href="../static/dassets/plugins/node-waves/waves.css" rel="stylesheet" />
+
+    <!-- Animation Css -->
+    <link href="../static/dassets/plugins/animate-css/animate.css" rel="stylesheet" />
+
+    <!-- Sweet Alert Css -->
+    <link href="../static/dassets/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+
+    <!-- Custom Css -->
+    <link href="../static/dassets/css/style.css" rel="stylesheet">
+
+    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+    <link href="../static/dassets/css/themes/all-themes.css" rel="stylesheet" />
+</head>
+<style>
+    body {
+        background-color: #00BCD4;
+    }
+</style>
+
+<body class="theme-red style=background-color: #03A9F4;">
+    <!-- Page Loader -->
+    <div class="page-loader-wrapper">
+        <div class="loader">
+            <div class="preloader">
+                <div class="spinner-layer pl-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+            <p>Please wait...</p>
+        </div>
+    </div>
+    <!-- #END# Page Loader -->
+    <!-- Top nav Bar -->
+    <nav class="navbar">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
+                <a href="javascript:void(0);" class="bars"></a>
+                <a class="navbar-brand" href="/">
+                    <img src="../static/assets/images/eloc456.png" class="logo" alt="">
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/"><i class="material-icons">home</i><span><strong>Home</strong></span></a>
+                    </li>
+                    <li>
+                        <a href="/login"><i class="material-icons">person</i><span><strong>Log In</strong></span></a> 
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- #Top nav Bar -->
+    <section>
+        <!-- Left Sidebar -->
+        <aside id="leftsidebar" class="sidebar hide">
+            <!-- Menu -->
+            <div class="menu">
+                <ul class="list">
+                    <li class="active">
+                    </li>
+                </ul>
+            </div>
+            <!-- #Menu -->
+        </aside>
+        <!-- #END# Left Sidebar -->
+    </section>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <section class="container">
+        <div class="container-fluid">
+            <!-- Advanced Form Example With Validation -->
+            <div class="">
+                <div class="">
+                    <div class="card">
+                        <div class="header align-center">
+                            <h2>3rd Party Sign Up Form</h2>
+                        </div>
+                        <div class="body">
+                            <form id="wizard_with_validation" method="POST">
+                                <h3>Account Information</h3>
+                                <fieldset>
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="email" class="form-control" name="email" required>
+                                            <label class="form-label">Email*</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="password" class="form-control" name="password" id="password" required>
+                                            <label class="form-label">Password*</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="password" class="form-control" name="confirm" required>
+                                            <label class="form-label">Confirm Password*</label>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <h3>Profile Information</h3>
+                                <fieldset>
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="text" name="fullname" class="form-control" required>
+                                            <label class="form-label">Full Name*</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" name="mobno" maxlength="10" minlength="10" required>
+                                            <label class="form-label">Mobile No*</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <textarea name="address" cols="30" rows="3" class="form-control no-resize" required></textarea>
+                                            <label class="form-label">Address*</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Type of Usage*</label>
+                                        <br>
+                                        <input type="radio" name="gender" id="male" value="FreeUsage" class="with-gap" required>
+                                        <label for="male">Free Usage</label>
+
+                                        <input type="radio" name="gender" id="female" value="CommercialUsage" class="with-gap" required>
+                                        <label for="female" class="m-l-20">Commercial Usage</label>
+                                    </div>
+                                </fieldset>
+
+                                <h3>Terms & Conditions - Finish</h3>
+                                <fieldset>
+
+                                    <p class="align-center">
+                                        <b>Clicking I agree with Terms and conditions means user is agree with the terms and
+                                            conditions defind by the eLoc system.</b>
+                                    </p>
+
+                                    <p>1. The service provided by eLoc system is free of cost, user can access all the functionality
+                                        defined for specific user role. </p>
+
+                                    <p>2. The APIs of data are available in JSON format for the commercial usage,users needs
+                                        to signup to eLoc system and generate therir API key.
+                                    </p>
+
+                                    <p>3. Keys generated by eLoc system are valid,Users are request to get own API key , other
+                                        user's API keys will be treated invalid and not allowed to gain access of data.
+                                    </p>
+
+                                    <p>4. Modification of data, change in system is copyright property of eLoc system.</p>
+
+                                    <p>5. eLoc system can deactivate and delete the data if the users activities found inappropriate
+                                        and miss use of eLoc system.</p>
+                                    <br>
+                                    <input id="acceptTerms-2" class="filled-in chk-col-pink" name="acceptTerms" type="checkbox" required>
+                                    <label for="acceptTerms-2">I agree with the Terms and Conditions.</label>
+                                    <br>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #END# Advanced Form Example With Validation -->
+        </div>
+    </section>
+
+    <!-- Jquery Core Js -->
+    <script src="../static/dassets/plugins/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core Js -->
+    <script src="../static/dassets/plugins/bootstrap/js/bootstrap.js"></script>
+
+    <!-- Select Plugin Js -->
+    <script src="../static/dassets/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+
+    <!-- Slimscroll Plugin Js -->
+    <script src="../static/dassets/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+    <!-- Jquery Validation Plugin Css -->
+    <script src="../static/dassets/plugins/jquery-validation/jquery.validate.js"></script>
+
+    <!-- JQuery Steps Plugin Js -->
+    <script src="../static/dassets/plugins/jquery-steps/jquery.steps.js"></script>
+
+    <!-- Sweet Alert Plugin Js -->
+    <script src="../static/dassets/plugins/sweetalert/sweetalert.min.js"></script>
+
+    <!-- Waves Effect Plugin Js -->
+    <script src="../static/dassets/plugins/node-waves/waves.js"></script>
+
+    <!-- Custom Js -->
+    <script src="../static/dassets/js/admin.js"></script>
+    <script src="../static/dassets/js/pages/forms/form-wizard.js"></script>
+
+    <!-- Demo Js -->
+    <script src="../static/dassets/js/demo.js"></script>
+</body>
+
+</html>

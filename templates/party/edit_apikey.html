@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>API Key | eLoc</title>
+    {% include 'includes/_header.html' %}
+</head>
+
+<body class="theme-red">
+    {% include 'includes/_loader.html' %} 
+    {% include 'includes/_partynavbar.html' %} 
+    {% include 'includes/_partymenu.html' %}
+        <section class="content">
+            <div class="container-fluid">
+                <div class="block-header">
+                    <h2>
+                        <strong>API Key</strong>
+                    </h2>
+                </div>
+                {% block body %}
+                <div class="body">
+                    <div class="card">
+                        <div class="body">
+                            <div class="header">
+                                {% macro render_field(field) %} {{ field(**kwargs)|safe }} {%endmacro%}
+                                <a href="/party/api_manage" class="btn btn-default waves-effect">
+                                    <i class="material-icons">arrow_back</i>BACK</a>
+                            </div>
+                            <form id="agentregModalForm" name="agentregModalForm" method="POST">
+                                <div class="body">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <label>This API key can be used in this project and with any API that supports it. To use this key in your application, pass it with the key=API_KEY parameter.</label>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                            <div class="input-group">
+                                                <label>Creation Date :{{form.creation_date}}</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                <div class="input-group">
+                                                    <label>Created by :{{form.created_by}}(you)</label>
+                                                </div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                <div class="input-group">
+                                                    <label>Status :{{form.status}}</label>
+                                                </div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                <div class="input-group">
+                                                        <label>API Key</label>
+                                                        {{render_field(form.api_key, class_="form-control disable") }}
+                                             </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                          <label class="input-group">Name</label>
+                                           {{render_field(form.project_name, class_="form-control") }}
+                                        </div>
+                                    <!-- row clearfix end here -->
+                                </div>
+                                <div class="">
+                                    <button type="submit" class="btn btn-primary waves-effect">SAVE</button>
+                                    <a href="/party/dashboard" class="btn btn-default waves-effect">CANCEL</a>
+                                    <button type="submit" name="delbtn" class="btn btn-danger waves-effect">DELETE</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- modal content ends here -->
+                    </div>
+                </div>
+                <!-- modal end here -->
+                {% endblock %}
+            </div>
+            <!-- container fluid ends here -->
+        </section>
+        <!-- section ends here -->
+        {% include 'includes/_footer.html' %}
+    </body>
+
+    </html>

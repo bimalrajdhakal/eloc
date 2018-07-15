@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Introducing Lollipop, a sweet new take on Android.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>eLoc | Directions</title>
+
+    <!-- Page styles -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en"
+      rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Bootstrap Core Css -->
+    <link href="../static/dassets/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+    
+    <!-- Waves Effect Css -->
+    <link href="../static/dassets/plugins/node-waves/waves.css" rel="stylesheet" />
+    
+    <!-- Animation Css -->
+    <link href="../static/dassets/plugins/animate-css/animate.css" rel="stylesheet" />
+    
+    <!-- Custom Css -->
+    <link href="../static/dassets/css/style.css" rel="stylesheet">
+    
+    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+    <link href="../static/dassets/css/themes/all-themes.css" rel="stylesheet" />
+    <!-- test css -->
+    <link rel="stylesheet" href="../static/map/material.min.css">
+    <link rel="stylesheet" href="../static/map/styles.css">
+    <style>
+      #map {
+          height: 100%;
+          width: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 0;
+      }
+      #customform {
+          position: relative;
+          z-index: 1;
+          /* The z-index should be higher than Google Maps */
+          /* Set the opacity for a slightly transparent Google Form */
+          color: white;
+      }
+      #btncus {
+          position: relative;
+          z-index: 1;
+          margin-top:15px;
+          margin-right: 70px;
+          padding: 0px;
+      }
+      #btncustom {
+          margin-left: 320px;
+          margin-top: -55px; 
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html,
+      body {
+          height: 100%;
+          margin: 0;
+          padding: 0;
+      }
+  </style>
+
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <div class="android-header mdl-layout__header "></div>
+      <div class="android-drawer mdl-layout__drawer">
+       <aside id="leftsidebar" class="sidebar">
+        <nav>
+            <div class="menu">
+                <ul class="list">
+                    <li class="header">MAIN NAVIGATION</li>
+                    <li><a  href="/"><i class="material-icons">home</i> <span>Home</span></a></li>
+                    <li><a  href="/login"><i class="material-icons">place</i> <span>Add Places</span></a></li>
+                    <div class="android-drawer-separator"></div>
+                    <li><a  href="/login"><i class="material-icons">person</i> <span>Log In</span></a></li>
+                    <li><a  href="/signup"><i class="material-icons">person_add</i> <span>Sign Up</span></a></li>
+                    <li><a  href="/party"><i class="material-icons">apps</i> <span>API Sign Up</span></a></li>
+                    <div class="android-drawer-separator"></div>
+                    <li><a  href="/places"><i class="material-icons">place</i> <span>Search Places</span></a></li>
+                    <li><a  href="/nearby"><i class="material-icons">near_me</i> <span>Nearby</span></a></li>
+                    <li><a  href="directions"><i class="material-icons">directions</i> <span>Directions</span></a></li>
+                </ul>
+              </div>
+        </nav>
+       </aside>
+      </div>
+
+      <div class="android-content mdl-layout__content">
+<!-- Right side button start -->
+<div class="pull-right">
+  <div class="btn-group user-helper-dropdown">
+      <button id="btncus" type="button" class="btn dropdown-toggle btn-default btn-circle-lg waves-effect waves-circle waves-float"
+          data-toggle="dropdown" aria-haspopup="true">
+          <i class="material-icons">settings</i>
+      </button>
+      <ul class="dropdown-menu pull-right">
+          <li>
+              <a href="/login">
+                  <i class="material-icons">person</i>Login</a>
+          </li>
+          <li role="seperator" class="divider"></li>
+          <li>
+              <a href="/signup">
+                  <i class="material-icons">person_add</i>Sign Up</a>
+          </li>
+          <li>
+              <a href="/party">
+                  <i class="material-icons">apps</i>API User</a>
+          </li>
+          <li role="seperator" class="divider"></li>
+          <li>
+              <a href="/">
+                  <i class="material-icons">home</i>Home</a>
+          </li>
+      </ul>
+  </div>
+</div>
+<!-- Right side button end -->
+        <!-- Tabs with icon start here -->
+        <div class="container-fluid row clearfix">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+              <div id="customform" class="card">
+                  <div class="body">
+                      <!-- Nav tabs -->
+                      <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#home_with_icon_title" data-toggle="tab">
+                                <i class="material-icons">directions</i> Directions
+                            </a>
+                        </li>
+                     </ul>
+                      <!-- Tab panes -->
+                      <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade in active" id="home_with_icon_title">
+                                  <div class="row m-b--40">
+                                      <div class="col-sm-10">
+                                          <div class="form-group">
+                                              <div class="form-line">
+                                                  <input type="text" id="txtSource" class="form-control" placeholder="From: Enter start location" />
+                                              </div>
+                                              <br>
+                                              <div class="form-line">
+                                                  <input type="text" id="txtDestination" class="form-control" placeholder="To: Enter destination" />
+                                              </div> 
+                                              <br>
+                                              <button type="button" class="btn pull-right bg-light-blue waves-effect" onclick="GetRoute()">
+                                                  <i class="material-icons">directions</i>
+                                                  <span>Get Routes</span>
+                                              </button>
+                                              <div id="dvDistance"></div>
+                            
+                                              <div id="dvPanel" ></div>
+                            
+                                          </div>
+                                      </div>
+                                  </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- #END# Tabs With Icon Title --> 
+
+      <div id="map"></div>  
+      <div id="customform"></div>
+      </div>
+    </div>
+
+
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
+<script type="text/javascript">
+    var source, destination;
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    google.maps.event.addDomListener(window, 'load', function () {
+        new google.maps.places.SearchBox(document.getElementById('txtSource'));
+        new google.maps.places.SearchBox(document.getElementById('txtDestination'));
+        directionsDisplay = new google.maps.DirectionsRenderer({ 'draggable': true });
+    });
+    var map_properties = {
+              center: { lat: 20.5937, lng: 78.9629 },
+              zoom: 5,
+              disableDefaultUI: true,
+              minZoom: 5
+          }
+          map = new google.maps.Map(document.getElementById('map'), map_properties);
+
+    function GetRoute() {
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('dvPanel'));
+
+        //*********DIRECTIONS AND ROUTE**********************//
+        source = document.getElementById("txtSource").value;
+        destination = document.getElementById("txtDestination").value;
+
+        var request = {
+            origin: source,
+            destination: destination,
+            travelMode: google.maps.TravelMode.DRIVING
+        };
+        directionsService.route(request, function (response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                directionsDisplay.setDirections(response);
+            }
+        });
+
+        //*********DISTANCE AND DURATION**********************//
+        var service = new google.maps.DistanceMatrixService();
+        service.getDistanceMatrix({
+            origins: [source],
+            destinations: [destination],
+            travelMode: google.maps.TravelMode.DRIVING,
+            unitSystem: google.maps.UnitSystem.METRIC,
+            avoidHighways: false,
+            avoidTolls: false
+        }, function (response, status) {
+            if (status == google.maps.DistanceMatrixStatus.OK && response.rows[0].elements[0].status != "ZERO_RESULTS") {
+                var distance = response.rows[0].elements[0].distance.text;
+                var duration = response.rows[0].elements[0].duration.text;
+                var dvDistance = document.getElementById("dvDistance");
+                dvDistance.innerHTML = "";
+                dvDistance.innerHTML += "Distance: " + distance + "<br />";
+                dvDistance.innerHTML += "Duration:" + duration;
+
+            } else {
+                alert("Unable to find the distance via road.");
+            }
+        });
+    }
+</script>
+
+
+
+    <!-- test js -->
+    <script src="../static/map/material.js"></script>
+    
+    <!-- Jquery Core Js -->
+    <script src="../static/dassets/plugins/jquery/jquery.min.js"></script>
+    
+    <!-- Bootstrap Core Js -->
+    <script src="../static/dassets/plugins/bootstrap/js/bootstrap.js"></script>
+    
+    
+    <!-- Select Plugin Js -->
+    <script src="../static/dassets/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+    
+    <!-- Slimscroll Plugin Js -->
+    <script src="../static/dassets/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+    
+    <!-- Bootstrap Notify Plugin Js -->
+    <script src="../static/dassets/plugins/bootstrap-notify/bootstrap-notify.js"></script>
+    
+    <!-- Waves Effect Plugin Js -->
+    <script src="../static/dassets/plugins/node-waves/waves.js"></script>
+    
+    
+    <!-- Demo Js -->
+    <script src="../static/dassets/js/demo.js"></script>
+
+  </body>
+</html>
+
+
+

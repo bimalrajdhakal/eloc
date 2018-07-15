@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>Dashboard | eLoc</title>
+    {% include 'includes/_header.html' %}
+</head>
+
+<body class="theme-red">
+    {% include 'includes/_loader.html' %} 
+
+    {% if session.user_type=='admin' %}
+        {% include 'includes/_adminnavbar.html' %}  
+        {% include 'includes/_adminmenu.html' %} 
+    {%endif %} 
+
+    {% if session.user_type=='user' %}
+        {% include 'includes/_usernavbar.html' %}
+        {% include 'includes/_usermenu.html' %} 
+    {% endif %} 
+
+    {% if session.user_type=='party' %} 
+        {% include 'includes/_partynavbar.html' %} 
+        {% include 'includes/_partymenu.html' %} 
+    {% endif %} 
+    
+    <section class="content">
+        <div class="container-fluid">
+            <div class="block-header">
+                <h2>Nearby Places</h2>
+            </div>
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="body">
+                            <div class="row clearfix">
+                                <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+                                        <label><b>What are you looking for?...</b></label>
+                                            <div class="">
+                                                <select class="form-control">
+                                                    <option value="">-- Select Categories --</option>
+                                                    <optgroup label="Emergencies & Hospitals">
+                                                            <option value="Hospitals">Hospitals</option>
+                                                            <option value="Blood Banks">Blood Banks</option>
+                                                            <option value="Ambulance Service">Ambulance Service</option>
+                                                            <option value="Fire Service">Fire Service</option>
+                                                            <option value="Police Stations">Police Stations</option>
+                                                    </optgroup>
+                                                    <optgroup label="Shopping">
+                                                            <option value="Shopping Malls">Malls</option> 
+                                                            <option value="Shopping Malls">Market Place</option>
+                                                    </optgroup>
+                                                    <optgroup label="Utilities">
+                                                            <option value="Petrol Stations">Petrol Stations</option>
+                                                            <option value="Post Offices">Post Offices</option>
+                                                            <option value="Banks">Banks</option>
+                                                            <option value="ATMs">ATMs</option>
+                                                    </optgroup>
+                                                    <optgroup label="Transport">
+                                                            <option value="Airport">Airport</option>
+                                                            <option value="Bus Stations">Bus Stations</option>
+                                                            <option value="Bus Stops">Bus Stops</option>
+                                                            <option value="Railway Stations">Railway Stations</option>
+                                                            <option value="Metro Stations">Metro Stations</option>
+                                                            <option value="Parking Zone">Parking Zone</option>
+                                                    </optgroup>
+                                                </select><br>
+                                            </div>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" id="address" class="form-control" placeholder="Where is this located?.....">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            <button type="button" class="btn btn-primary pull-right btn-lg m-l-15 waves-effect" onclick="codeAddress()">SEARCH</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #END# Inline Layout -->
+            <div class="alert alert-warning">
+                Adjust Marker to get your current location and Click Next
+                <button type="button" class="btn btn-default waves-effect pull-right" data-toggle="modal" data-target="#defaultModal">NEXT</button>
+            </div>
+            <!-- Basic Example -->
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="body">
+                            <div id="map" class="gmap"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #END# Basic Example -->
+        </div>
+    </section>
+    <!-- google customization JavaScript code Start from here -->
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+
+    <script>
+
+        var geocoder;
+        var map;
+        var marker;
+        var infowindow = new google.maps.InfoWindow({
+            size: new google.maps.Size(150, 50)
+        });
+
+        function initialize() {
+            geocoder = new google.maps.Geocoder();
+            var latlng = new google.maps.LatLng(20.5937, 78.9629);
+            var mapOptions = {
+                zoom: 5,
+                disableDefaultUI: true,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+            map = new google.maps.Map(document.getElementById('map'), mapOptions);
+            google.maps.event.addListener(map, 'click', function () {
+                infowindow.close();
+            });
+        }
+
+        function geocodePosition(pos) {
+            geocoder.geocode({
+                latLng: pos
+            }, function (responses) {
+                if (responses && responses.length > 0) {
+                    marker.formatted_address = responses[0].formatted_address;
+                } else {
+                    marker.formatted_address = 'Cannot determine address at this location.';
+                }
+                infowindow.setContent(marker.formatted_address + "<br>coordinates: " + marker.getPosition().toUrlValue(6));
+                var lat = marker.getPosition().lat();
+                var lng = marker.getPosition().lng();
+                document.getElementById('lat').value = lat;
+                document.getElementById('lng').value = lng;
+                document.getElementById('runningadd').value = responses[0].formatted_address;
+
+                infowindow.open(map, marker);
+            });
+        }
+
+        function codeAddress() {
+            var address = document.getElementById('address').value;
+            geocoder.geocode({
+                'address': address
+            }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    map.setCenter(results[0].geometry.location);
+                    if (marker) {
+                        marker.setMap(null);
+                        if (infowindow) infowindow.close();
+                    }
+                    marker = new google.maps.Marker({
+                        map: map,
+                        draggable: true,
+                        animation: google.maps.Animation.DROP,
+                        position: results[0].geometry.location
+                    });
+                    map.setZoom(14);
+                    google.maps.event.addListener(marker, 'dragend', function () {
+                        geocodePosition(marker.getPosition());
+                        map.setZoom(17)
+                    });
+                    google.maps.event.addListener(marker, 'click', function () {
+                        if (marker.formatted_address) {
+                            infowindow.setContent(marker.formatted_address + "<br>coordinates: " + marker.getPosition().toUrlValue(6));
+                            //map.setZoom(17)
+                        } else {
+                            infowindow.setContent(address + "<br>coordinates: " + marker.getPosition().toUrlValue(6));
+                        }
+                        infowindow.open(map, marker);
+                    });
+                    google.maps.event.trigger(marker, 'click');
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+
+        google.maps.event.addDomListener(window, "load", initialize);
+    </script>
+    <!-- google customization JavaScript code ends from here -->
+    {% include 'includes/_footer.html' %}
+
+</body>
+
+</html>

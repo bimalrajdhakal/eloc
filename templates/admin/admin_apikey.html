@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>API Key | eLoc</title>
+    {% include 'includes/_header.html' %}
+        <!-- JQuery DataTable Css -->
+        <link href="../../static/dassets/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+</head>
+
+<body class="theme-red">
+    {% include 'includes/_loader.html' %} 
+    {% include 'includes/_adminnavbar.html' %} 
+    {% include 'includes/_adminmenu.html' %}
+    <section class="content">
+        <div class="container-fluid">
+            <div class="block-header">
+                <strong>API Management</strong>
+            </div>
+            <!-- Exportable Table -->
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <button type="button" class="btn bg-light-green waves-effect" data-toggle="modal" data-target="#defaultModal">
+                                <i class="material-icons">vpn_key</i>
+                                <span>
+                                    <b>Generate A KEY</b>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Project Name</th>
+                                            <th>Purpose</th>
+                                            <th>Creation Date</th>
+                                            <th>API Key</th>
+                                            <th>Status</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% block body %}
+                                        {% for apikey in apidata %}
+                                        <tr>
+                                            <td>{{apikey.project_name}}</td>
+                                            <td>{{apikey.purpose}}</td>
+                                            <td>{{apikey.creation_date}}</td>
+                                            <td>{{apikey.api_key}}</td>
+                                            <td>{{apikey.status}}</td>
+                                            <td>
+                                                <a href="edit_apikey/{{apikey.apikeyid}}"><button type="button" class="btn btn-success waves-effect">Edit</button></a>
+                                                <a href="delete_apikey/{{apikey.apikeyid}}"><button type="button" class="btn btn-danger waves-effect">Delete</button></a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                        {% endblock %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #END# Exportable Table -->
+                        <!-- Default Size -->
+                        <div class="modal fade" id="defaultModal" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="defaultModalLabel">API Key Generation</h4>
+                                    </div>
+                                <form name="apikeygen" method="POST">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" name="project_name" class="form-control" placeholder="Project Name" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" name="purpose" class="form-control" placeholder="Purpose" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-link waves-effect">SAVE</button>
+                                        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+            
+        </div>
+        <!-- container fluid ends here -->
+    </section>
+    <!-- section ends here -->
+    <!-- Jquery DataTable Plugin Js -->
+    <script src="../../static/dassets/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+
+    <!-- Custom Js -->
+    <script src="../../static/dassets/js/pages/tables/jquery-datatable.js"></script>
+
+    <!-- Demo Js -->
+    <script src="../../static/dassets/js/demo.js"></script>
+    {% include 'includes/_footer.html' %}
+
+</body>
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>Address Card| eLoc</title>
+    {% include 'includes/_header.html' %}
+</head>
+
+<body class="theme-red">
+    {% include 'includes/_loader.html' %}
+     {% if session.user_type=='admin' %} 
+        {% include 'includes/_adminnavbar.html' %} 
+        {% include 'includes/_adminmenu.html' %} 
+    {%endif %} 
+    {% if session.user_type=='user' %} 
+        {% include 'includes/_usernavbar.html' %}
+        {% include 'includes/_usermenu.html' %}
+    {% endif %} 
+    {% if session.user_type=='party' %} 
+        {% include 'includes/_partynavbar.html'%} 
+        {% include 'includes/_partymenu.html' %}
+    {% endif %}
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="block-header">
+                <h2>Get Address Card</h2>
+            </div>
+            <!-- Basic Example -->
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                               Address Card
+                            </h2>
+                         </div>
+                        <div class="body">
+                            <div class="row">
+                                <div class="row clearfix">
+                                    <div class="col-md-7">
+                                        <div class="container-fluid">
+                                            <center><h3>Your eLoc Address Card</h3> </center>
+                                            H.No.: {{data['hno']}}</br>
+                                            Street: {{data['street']}}</br>
+                                            Landmark: {{data['landmark']}}</br>
+                                            Area: {{data['area']}}</br>
+                                            Village/Town: {{data['village_town']}}</br>
+                                            PIN Code: {{data['pincode']}}</br>
+                                            District :{{data['district']}}</br>
+                                            State : {{data['state']}}
+                                            <center><h4>eLoc: {{data['eloc_id']}} </h4></center>
+                                            <center>Residency Type: {{data['residency_type']}}</center>
+                                        </div>
+                                    </br>
+                                        <center>
+                                            <a href="/common/printCard">
+                                                <button type="button" class="btn btn-primary waves-effect">
+                                                        <i class="material-icons">print</i>
+                                                        <span>Print Address Card</span>
+                                                    </button>
+                                                </a>
+                                        </center>
+
+                                    </div>
+                                    <center>
+                                    <div class="col-md-3">
+                                        <a href="" download class="">
+                                            <img src="/common/get_qrimg" class="img-responsive"> 
+                                        </a>
+                                    </div>
+                                </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #END# Basic Example -->
+        </div>
+    </section>
+    {% include 'includes/_footer.html' %}
+
+</body>
+
+</html>

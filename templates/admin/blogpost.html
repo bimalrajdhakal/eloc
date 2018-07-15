@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>Blog Post | eLoc</title>
+    {% include 'includes/_header.html' %}
+        <!-- JQuery DataTable Css -->
+        <link href="../../static/dassets/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+</head>
+
+<body class="theme-red">
+    {% include 'includes/_loader.html' %} 
+    {% include 'includes/_adminnavbar.html' %} 
+    {% include 'includes/_adminmenu.html' %}
+    <section class="content">
+        <div class="container-fluid">
+            <div class="block-header">
+                <strong>Blog Management</strong>
+            </div>
+            <!-- Exportable Table -->
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <a href="/admin/newblog">
+                                <button type="button" class="btn bg-light-green waves-effect">
+                                <i class="material-icons">note_add</i>
+                                <span>
+                                    <b>Add Blog</b>
+                                </span>
+                            </button></a>
+                        </div>
+                        <div class="body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Sl No</th>
+                                            <th>Blog Title</th>
+                                            <th>Post Date</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                        {% for i in range(data|length) %}
+                                        <tr>
+                                            <td> {{i+1}} </td>
+                                            <td>{{data[i]['blog_title']}}</td>
+                                            <td>{{data[i]['posted_on']}}</td>
+                                            <td>
+                                                <a href="/admin/view_blogpost/{{data[i]['blog_id']}}"><button type="button" class="btn btn-primary waves-effect">View</button></a>
+                                                <a href="/admin/edit_blogpost/{{data[i]['blog_id']}}"><button type="button" class="btn btn-success waves-effect">Edit</button></a>
+                                                <a href="/admin/delete_blogpost/{{data[i]['blog_id']}}"><button type="button" class="btn btn-danger waves-effect">Delete</button></a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #END# Exportable Table -->
+            
+        </div>
+        <!-- container fluid ends here -->
+    </section>
+    <!-- section ends here -->
+    {% include 'includes/_footer.html' %}
+
+</body>
+
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>Generate QR| eLoc</title>
+    {% include 'includes/_header.html' %}
+</head>
+
+<body class="theme-red">
+    {% include 'includes/_loader.html' %}
+     {% if session.user_type=='admin' %} 
+        {% include 'includes/_adminnavbar.html' %} 
+        {% include 'includes/_adminmenu.html' %} 
+    {%endif %} 
+    {% if session.user_type=='user' %} 
+        {% include 'includes/_usernavbar.html' %}
+        {% include 'includes/_usermenu.html' %}
+    {% endif %} 
+    {% if session.user_type=='party' %} 
+        {% include 'includes/_partynavbar.html'%} 
+        {% include 'includes/_partymenu.html' %}
+    {% endif %}
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="block-header">
+                <h2>Get QR Code</h2>
+            </div>
+            <!-- Basic Example -->
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                               QR Code
+                            </h2>
+                         </div>
+                        <div class="body">
+                            <div class="row">
+                                <div class="row clearfix">
+                                    <div class="col-md-7">
+                                        <div class="container-fluid">
+                                            <h3>Your eLoc QR Code</h3>
+                                              <br><br>
+                                              1. Scan this QR Code to get details of your eLoc <br>
+                                                <br><br>
+                                              2. Download this QR Code to share your eLoc
+                                        </div>
+                                    </div>
+                                    <center>
+                                    <div class="col-md-3">
+                                        <a href="" download class="">
+                                            <img src="/common/get_qrimg" class="img-responsive"> 
+                                            <button type="button" class="btn btn-primary waves-effect">
+                                                <i class="material-icons">file_download</i>
+                                                <span>Download QR Code</span>
+                                            </button>
+                                        </a>
+                                    </div>
+                                </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #END# Basic Example -->
+        </div>
+    </section>
+    {% include 'includes/_footer.html' %}
+
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>Blog Post | eLoc</title>
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap Core Css -->
+    <link href="../../static/dassets/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Waves Effect Css -->
+    <link href="../../static/dassets/plugins/node-waves/waves.css" rel="stylesheet" />
+
+    <!-- Animation Css -->
+    <link href="../../static/dassets/plugins/animate-css/animate.css" rel="stylesheet" />
+
+    <!-- Custom Css -->
+    <link href="../../static/dassets/css/style.css" rel="stylesheet">
+
+    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+    <link href="../../static/dassets/css/themes/all-themes.css" rel="stylesheet" />
+
+</head>
+
+<body class="theme-red">
+    {% include 'includes/_loader.html' %} 
+    {% include 'includes/_adminnavbar.html' %} 
+    {% include 'includes/_adminmenu.html' %}
+    <section class="content">
+        <div class="container-fluid">
+            <div class="block-header">
+                <strong>Blog Post</strong>
+            </div>
+            <!-- TinyMCE -->
+            <div class="row clearfix">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="card">
+                            <div class="header">
+                                <h2>
+                                    <center>Update Blog Post</center>
+                                    <a href="/admin/blogpost" class="btn btn-default waves-effect">
+                                    <i class="material-icons">arrow_back</i>BACK</a>
+                                </h2>
+                            </div>
+                            <div class="body">
+                            <form name="blogpost" method="POST">
+                                <label>Title</label>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" name="title" class="form-control" value="{{data.blog_title}}" />
+                                    </div>
+                                </div>
+                                 <label>Blog Body</label>
+                                <div>
+                                    <textarea name="body" cols="4" rows="15" class="form-control" >{{data.blog_body}}</textarea>
+                                </div>
+                               <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary waves-effect">SAVE</button>
+                                    <button type="reset" class="btn btn-success waves-effect">CLEAR</button>
+                               </div>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+        <!-- container fluid ends here -->
+    </section>
+
+   <!-- Jquery Core Js -->
+   <script src="../../static/dassets/plugins/jquery/jquery.min.js"></script>
+
+   <!-- Bootstrap Core Js -->
+   <script src="../../static/dassets/plugins/bootstrap/js/bootstrap.js"></script>
+
+   <!-- Select Plugin Js -->
+   <script src="../../static/dassets/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+
+   <!-- Slimscroll Plugin Js -->
+   <script src="../../static/dassets/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+   <!-- Waves Effect Plugin Js -->
+   <script src="../../static/dassets/plugins/node-waves/waves.js"></script>
+
+
+   <!-- Custom Js -->
+   <script src="../../static/dassets/js/admin.js"></script>
+
+   <!-- Demo Js -->
+   <script src="../../static/dassets/js/demo.js"></script>
+
+
+
+</body>
+
+</html>

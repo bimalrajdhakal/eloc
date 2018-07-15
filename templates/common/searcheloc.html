@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>Search eLoc | eLoc</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    {% include 'includes/_header.html' %}
+</head>
+
+<body class="theme-red">
+    {% include 'includes/_loader.html' %} 
+
+    {% if session.user_type=='admin' %}
+        {% include 'includes/_adminnavbar.html' %}  
+        {% include 'includes/_adminmenu.html' %} 
+    {%endif %} 
+
+    {% if session.user_type=='user' %}
+        {% include 'includes/_usernavbar.html' %}
+        {% include 'includes/_usermenu.html' %} 
+    {% endif %} 
+
+    {% if session.user_type=='party' %} 
+        {% include 'includes/_partynavbar.html' %} 
+        {% include 'includes/_partymenu.html' %} 
+    {% endif %} 
+    <section class="content">
+        <div class="container-fluid">
+            <div class="block-header">
+                <h2>Search eLoc</h2>
+            </div>
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="body">
+                            <div class="row clearfix">
+                            <form name="elocsearch" method="POST">
+                                <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" name="eloc_id" class="form-control" placeholder="Enter eLoc. Example: 8GDTYX">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <button type="submit" name="eloc_id" class="btn btn-primary btn-lg m-l-15 waves-effect">SEARCH</button>
+                                </div>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #END# Inline Layout -->
+            <!-- <div class="alert alert-warning">
+                Adjust Marker to get your current location and Click Next
+                <button type="button" class="btn btn-default waves-effect pull-right" data-toggle="modal" data-target="#defaultModal">NEXT</button>
+            </div> -->
+            {% if err %}
+            <script>
+                 swal({
+                    title: "We are Sorry!",
+                    text: "{{err}}",
+                    icon: "error",
+                    button: "Done",
+                });
+            </script>
+        {% endif%}
+        {% if data %}
+          <div class="hide">
+              <input type="text" id="lat" value="{{data['lat']}}">
+              <input type="text" id="lng" value="{{data['lng']}}">
+          </div>
+        <script>
+            swal({
+                title: "eLoc Information !",
+                text: "H.No.: {{data['hno']}}\nStreet: {{data['street']}}\nLandmark: {{data['landmark']}}\nArea: {{data['area']}}\nVillage/Town: {{data['village_town']}}\nPIN Code: {{data['pincode']}}\nDistrict :{{data['district']}}\nState : {{data['state']}}",
+                button: "Done",
+            });
+        </script>
+        {% endif %}
+
+            
+            <!-- Basic Example -->
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="body">
+                            <div id="map" class="gmap"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #END# Basic Example -->
+        </div>
+    </section>
+    <!-- google customization JavaScript code Start from here -->
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+
+    <script>
+
+        var lat=document.getElementById('lat').value;
+        var lng=document.getElementById('lng').value;
+        var geocoder;
+        var map;
+        var marker;
+        var infowindow = new google.maps.InfoWindow({
+            size: new google.maps.Size(150, 50)
+        });
+
+        function initialize() {
+            geocoder = new google.maps.Geocoder();
+            var latlng = new google.maps.LatLng(lat,lng);
+            var mapOptions = {
+                zoom: 17,
+                disableDefaultUI: true,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+            map = new google.maps.Map(document.getElementById('map'), mapOptions);
+            google.maps.event.addListener(map, 'click', function () {
+                infowindow.close();
+            });
+            marker = new google.maps.Marker({
+                        map: map,
+                        draggable: true,
+                        animation: google.maps.Animation.DROP,
+                        position: latlng
+                    });
+            google.maps.event.addListener(marker, 'click', function () {
+                            infowindow.setContent(text);
+                        });
+            
+        }
+
+        google.maps.event.addDomListener(window, "load", initialize);
+    </script>
+    <!-- google customization JavaScript code ends from here -->
+    {% include 'includes/_footer.html' %}
+
+</body>
+
+</html>

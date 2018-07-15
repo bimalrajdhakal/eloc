@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>eLoc Log| eLoc</title>
+    {% include 'includes/_header.html' %}
+</head>
+
+<body class="theme-red">
+    {% include 'includes/_loader.html' %} 
+    {% if session.user_type=='admin' %} 
+        {% include 'includes/_adminnavbar.html' %} 
+        {% include 'includes/_adminmenu.html' %} 
+    {%endif %} 
+    {% if session.user_type=='user' %} 
+        {% include 'includes/_usernavbar.html' %}
+        {% include 'includes/_usermenu.html' %} 
+    {% endif %} 
+    {% if session.user_type=='party' %} 
+        {% include 'includes/_partynavbar.html'%}
+        {% include 'includes/_partymenu.html' %} 
+    {% endif %}
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="block-header">
+                <h2>eLoc Log</h2>
+            </div>
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="body">
+                            <div class="row clearfix">
+                                <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" id="address" class="form-control" placeholder="Enter nearby area or place name">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <button type="button" class="btn btn-primary btn-lg m-l-15 waves-effect" onclick="codeAddress()">SEARCH</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- eloc log with caterories start here -->
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                                Your Saved
+                                <button type="button" class="btn bg-light-green waves-effect pull-right" data-toggle="modal" data-target="#cateModal">
+                                    <i class="material-icons">add_circle</i>
+                                    <span>Add Categories</span>
+                                </button>
+                            </h2>
+                        </div>
+                        <div class="body">
+                            <div class="menu">
+                                <div class="list">
+                                    <ul class="list-group">
+                                        <li class="list-group-item clearfix">
+                                            <span>Home</span>
+                                            <br>
+                                            <button type="button" class="btn bg-blue btn-circle waves-effect waves-circle waves-float pull-left">
+                                                <i class="material-icons">home</i>
+                                            </button>
+                                            <center>
+                                                <span>home_eloc</span>
+                                            </center>
+                                            <div class="pull-right">
+                                                <ul class="header-dropdown m-r--5">
+                                                    <li class="dropdown clearfix">
+                                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="material-icons">more_vert</i>
+                                                        </a>
+                                                        <ul class="dropdown-menu pull-right">
+                                                            <li>
+                                                                <a href="javascript:void(0);">
+                                                                    <button type="button" class="btn btn-default btn-circle waves-effect waves-circle waves-float" data-toggle="modal" data-target="#homeModal">
+                                                                        <i class="material-icons">mode_edit</i>
+                                                                    </button>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item clearfix">
+                                            <span>Work</span>
+                                            <br>
+                                            <button type="button" class="btn bg-blue btn-circle waves-effect waves-circle waves-light waves-float pull-left">
+                                                <i class="material-icons">work</i>
+                                            </button>
+                                            <center>
+                                                <span>work_eloc</span>
+                                            </center>
+                                            <div class="pull-right">
+                                                <ul class="header-dropdown">
+                                                    <li class="dropdown">
+                                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="material-icons">more_vert</i>
+                                                        </a>
+                                                        <ul class="dropdown-menu pull-right">
+                                                            <li>
+                                                                <a href="javascript:void(0);">
+                                                                    <button type="button" class="btn btn-default btn-circle waves-effect waves-circle waves-float" data-toggle="modal" data-target="#workModal">
+                                                                        <i class="material-icons">mode_edit</i>
+                                                                    </button>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        {% for catdata in data %}
+                                        <li class="list-group-item clearfix">
+                                            <span>{{catdata.log_category}}</span>
+                                            <br>
+                                            <button type="button" class="btn btn-success btn-circle waves-effect waves-red waves-circle waves-float pull-left">
+                                                <i class="material-icons">favorite</i>
+                                            </button>
+                                            <center>
+                                                <span>{{catdata.eloc_address}}</span>
+                                            </center>
+                                            <div class="pull-right">
+                                                <ul class="header-dropdown">
+                                                    <li class="dropdown">
+                                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="material-icons">more_vert</i>
+                                                        </a>
+                                                        <ul class="dropdown-menu pull-right">
+                                                            <li>
+                                                                <a href="javascript:void(0);">Edit</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="javascript:void(0);">Delete</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- eloc log with caterories end here -->
+                <!-- Map -->
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                    <div class="card">
+                        <div class="body">
+                            <div id="map" class="gmap"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Map -->
+            </div>
+            <!-- Home modal -->
+            <div class="modal fade" id="homeModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="smallModalLabel">Add your Home eLoc</h4>
+                        </div>
+                    <form name="home_eloc_add" method="POST">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" name="home_eloc" class="form-control" placeholder="Enter your Home eLoc">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" name="home_eloc_btn" class="btn btn-link waves-effect">SAVE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Home modal ends here -->
+            <!-- work modal -->
+            <div class="modal fade" id="workModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="smallModalLabel">Add your Work eLoc</h4>
+                        </div>
+                    <form name="work_eloc_add" method="POST">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" name="work_eloc" class="form-control" placeholder="Enter your Work eLoc">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" name="work_eloc_btn" class="btn btn-link waves-effect">SAVE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+            <!-- work modal ends here -->
+            <!-- categories modal -->
+            <div class="modal fade" id="cateModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="smallModalLabel">Add Category</h4>
+                        </div>
+                    <form name="cat_add" method="POST">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" name="cat_name" class="form-control" placeholder="Enter your Category">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" name="cat_eloc" class="form-control" placeholder="Enter your eLoc">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" name="cat_add_btn" class="btn btn-link waves-effect">SAVE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+                     </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Categories modal ends here -->
+
+        </div>
+    </section>
+    <!-- google customization JavaScript code Start from here -->
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+
+    <script>
+
+        var geocoder;
+        var map;
+        var marker;
+        var infowindow = new google.maps.InfoWindow({
+            size: new google.maps.Size(150, 50)
+        });
+
+        function initialize() {
+            geocoder = new google.maps.Geocoder();
+            var latlng = new google.maps.LatLng(20.5937, 78.9629);
+            var mapOptions = {
+                zoom: 5,
+                disableDefaultUI: true,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+            map = new google.maps.Map(document.getElementById('map'), mapOptions);
+            google.maps.event.addListener(map, 'click', function () {
+                infowindow.close();
+            });
+        }
+
+        function geocodePosition(pos) {
+            geocoder.geocode({
+                latLng: pos
+            }, function (responses) {
+                if (responses && responses.length > 0) {
+                    marker.formatted_address = responses[0].formatted_address;
+                } else {
+                    marker.formatted_address = 'Cannot determine address at this location.';
+                }
+                infowindow.setContent(marker.formatted_address + "<br>coordinates: " + marker.getPosition().toUrlValue(6));
+                var lat = marker.getPosition().lat();
+                var lng = marker.getPosition().lng();
+                document.getElementById('lat').value = lat;
+                document.getElementById('lng').value = lng;
+                document.getElementById('runningadd').value = responses[0].formatted_address;
+
+                infowindow.open(map, marker);
+            });
+        }
+
+        function codeAddress() {
+            var address = document.getElementById('address').value;
+            geocoder.geocode({
+                'address': address
+            }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    map.setCenter(results[0].geometry.location);
+                    if (marker) {
+                        marker.setMap(null);
+                        if (infowindow) infowindow.close();
+                    }
+                    marker = new google.maps.Marker({
+                        map: map,
+                        draggable: true,
+                        animation: google.maps.Animation.DROP,
+                        position: results[0].geometry.location
+                    });
+                    map.setZoom(14);
+                    google.maps.event.addListener(marker, 'dragend', function () {
+                        geocodePosition(marker.getPosition());
+                        map.setZoom(17)
+                    });
+                    google.maps.event.addListener(marker, 'click', function () {
+                        if (marker.formatted_address) {
+                            infowindow.setContent(marker.formatted_address + "<br>coordinates: " + marker.getPosition().toUrlValue(6));
+                            //map.setZoom(17)
+                        } else {
+                            infowindow.setContent(address + "<br>coordinates: " + marker.getPosition().toUrlValue(6));
+                        }
+                        infowindow.open(map, marker);
+                    });
+                    google.maps.event.trigger(marker, 'click');
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+
+        google.maps.event.addDomListener(window, "load", initialize);
+    </script>
+    <!-- google customization JavaScript code ends from here -->
+    {% include 'includes/_footer.html' %}
+
+</body>
+
+</html>
