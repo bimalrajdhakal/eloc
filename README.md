@@ -4,3 +4,4 @@ This application generates an unique alphanumeric 6 character to represent the c
 
 
 This project also contains an Android Mobile Application which works similar to web application also adds other features for mobile users.
+The android version of this project can be accessed from https://github.com/bimalrajdhakal/eloc_AndriodApp.git
